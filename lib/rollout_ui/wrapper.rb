@@ -12,7 +12,15 @@ module RolloutUi
     def groups
       rollout.instance_variable_get("@groups").keys
     end
-    
+
+    def add_feature(feature)
+      redis.sadd(:features, feature)
+    end
+
+    def remove_feature(feature)
+      redis.srem(:features, feature)
+    end
+
     def features
       features = @rollout.features
       features ? features.sort : []
